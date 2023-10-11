@@ -1,5 +1,5 @@
 const express = require('express');
-const UserController = require('../modules/user/user.controller');
+const UserController = require('./controller');
 const router = express.Router();
 
 router.get(`/api/v1/users/:UserID`, UserController.findByID);

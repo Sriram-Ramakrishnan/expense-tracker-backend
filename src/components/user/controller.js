@@ -1,14 +1,14 @@
-const UserService = require(`./user.service`);
+const UserService = require(`./service`);
 
 class UserController {
 
-    async findByID(req, res) {
+    static findByID = async (req, res) => {
         const data = await UserService.findByID(req.params.UserID)
 
         res.json(data)
     }
 
-    async create(req, res) {
+    static create = async (req, res) => {
         const data = await UserService.create(req.body)
 
         res.json(data)
@@ -16,4 +16,4 @@ class UserController {
 
 }
 
-module.exports = new UserController()
+module.exports = UserController;

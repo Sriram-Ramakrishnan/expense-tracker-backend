@@ -1,8 +1,8 @@
-const UserRepository = require(`./user.repository`);
+const UserRepository = require(`./data-handler`);
 
 class UserService {
 
-    async findByID(UserID) {
+    static findByID = async (UserID) => {
         const data = await UserRepository.findByID(UserID);
 
         if (data) {
@@ -12,7 +12,7 @@ class UserService {
         return data;
     }
 
-    async create(data) {
+    static create = async (data) => {
         return await UserRepository.create({
             Username: data.Username
         });
@@ -20,4 +20,4 @@ class UserService {
 
 }
 
-module.exports = new UserService()
+module.exports = UserService;

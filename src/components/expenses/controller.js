@@ -1,13 +1,13 @@
-const ExpenseService = require(`./services`);
+const ExpenseService = require(`./service`);
 
 class ExpenseController {
 
-    async create(req, res) {
-        const data = await ExpenseService.create(req.body)
+    static async create(req, res) {
+        const data = await ExpenseService.createExpense(req.body)
 
         res.json(data)
     }
 
 }
 
-module.exports = new ExpenseController()
+module.exports = ExpenseController;

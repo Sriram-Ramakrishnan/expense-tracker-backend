@@ -1,13 +1,9 @@
 const db = require(`../../helpers/database`);
 
 class DynamoController {
-    constructor() {
-        this.tableName = 'Expenses';
-    }
-
-    async create(data) {
+    static createExpense = async (data) => {
         const params = {
-            TableName: this.tableName,
+            TableName: 'Expenses',
             Item: {
                 UserID: data.UserID,
                 ExpenseID: data.ExpenseID,
@@ -21,4 +17,4 @@ class DynamoController {
     }
 }
 
-module.exports = new DynamoController();
+module.exports = DynamoController;

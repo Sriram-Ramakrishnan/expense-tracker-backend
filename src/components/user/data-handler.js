@@ -2,13 +2,9 @@ const db = require(`../../helpers/database`);
 const {v4: uuidv4} = require('uuid');
 
 class UserRepository {
-    constructor() {
-        this.tableName = 'Users';
-    }
-
-    async findByID(UserID) {
+    static findByID = async (UserID) => {
         const params = {
-            TableName: this.tableName,
+            TableName: 'Users',
             Key: {
                 UserID,
             },
@@ -17,9 +13,9 @@ class UserRepository {
         return await db.get(params).promise();
     }
 
-    async create(data) {
+    static create = async (data) => {
         const params = {
-            TableName: this.tableName,
+            TableName: 'Users',
             Item: {
                 UserID: uuidv4(),
                 Username: data.Username,
@@ -32,4 +28,4 @@ class UserRepository {
     }
 }
 
-module.exports = new UserRepository();
+module.exports = UserRepository;
