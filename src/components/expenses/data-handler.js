@@ -1,20 +1,20 @@
-const db = require(`../../helpers/database`);
+import { DynamoDBClient,CreateTableCommand } from "@aws-sdk/client-dynamodb";
 
+const client = new DynamoDBClient({
+    region: process.env.region,
+});
 class DynamoController {
-    static createExpense = async (data) => {
-        const params = {
-            TableName: 'Expenses',
-            Item: {
-                UserID: data.UserID,
-                ExpenseID: data.ExpenseID,
-                ExpenseName: data.ExpenseName,
-                Cost: data.Cost
-            },
-        };
+    static createTable = async (params) => {
+        const command = new CreateTableCommand(params);
+        const response = await client.send(command);
+        console.log(response);
+        return response;
+    };
 
+    static addItem = async (params) => {
         await db.put(params).promise();
         return params.Item;
     }
 }
 
-module.exports = DynamoController;
+export default DynamoController;

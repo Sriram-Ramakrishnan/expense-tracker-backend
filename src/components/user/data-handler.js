@@ -1,6 +1,5 @@
-const db = require(`../../helpers/database`);
-const {v4: uuidv4} = require('uuid');
-
+import { DynamoDBClient,CreateTableCommand } from "@aws-sdk/client-dynamodb";
+const client = new DynamoDBClient({region: process.env.region });
 class UserRepository {
     static findByID = async (UserID) => {
         const params = {
@@ -28,4 +27,4 @@ class UserRepository {
     }
 }
 
-module.exports = UserRepository;
+export default UserRepository;

@@ -1,13 +1,15 @@
-const express = require('express')
+import express, { json } from 'express';
 const app = express()
 const port = 3000
 
 // Import the env files
-require(`dotenv`).config();
+import 'dotenv'
+import { config } from 'dotenv';
+config();
 
-const bodyParser = require('body-parser')
-const UserRouter = require(`./src/components/user/routes`);
-const ExpenseRouter = require(`./src/components/expenses/routes`);
+import bodyParser from 'body-parser'
+import UserRouter from './src/components/user/routes.js';
+import ExpenseRouter from  './src/components/expenses/routes.js';
 app.use(bodyParser.json())
 
 app.use('/',UserRouter);

@@ -1,4 +1,4 @@
-const UserRepository = require(`./data-handler`);
+import UserRepository from './data-handler.js'
 
 class UserService {
 
@@ -20,4 +20,4 @@ class UserService {
 
 }
 
-module.exports = UserService;
+export default UserService;
