@@ -1,15 +1,15 @@
 import UserService from './service.js';
-
 class UserController {
 
-    static findByID = async (req, res) => {
-        const data = await UserService.findByID(req.params.UserID)
-        res.json(data)
+    static findUserByID = async (req, res) => {
+        const UserID = req.params.UserID;
+        const response = await UserService.findUserByID(UserID);
+        res.send(response);
     }
 
-    static create = async (req, res) => {
-        const data = await UserService.create(req.body)
-        res.json(data)
+    static createUser = async (req, res) => {
+        const response = await UserService.createUser(req.body)
+        res.send(response);
     }
 
 }

@@ -1,15 +1,22 @@
 import ExpenseService from './service.js';
 
 class ExpenseController {
-
-    static addExpense = async (req, res) => {
-        const data = await ExpenseService.createExpense(req.body)
-        res.json(data)
+    // Add expense
+    static createExpense = async (req, res) => {
+        const response = await ExpenseService.createExpense(req.body)
+        res.send(response);
     }
 
-    static createTables = async (req, res) => {
-        const data = await ExpenseService.createTableExpense(req.body)
-        res.json(data)
+    // Add expense
+    static deleteExpense = async (req, res) => {
+        const response = await ExpenseService.deleteExpense(req.body)
+        res.send(response);
+    }
+
+    // Add expense
+    static getExpenses = async (req, res) => {
+        const response = await ExpenseService.getExpenses(req.body)
+        res.send(response);
     }
 }
 

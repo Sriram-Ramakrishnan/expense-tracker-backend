@@ -1,4 +1,5 @@
-import DynamoController from './data-handler.js'
+import DynamoController from '../../database/data-handler.js'
+import { v4 as uuidv4 } from 'uuid';
 class ExpenseService {
 
     static createExpense = async (data) => {
@@ -6,39 +7,35 @@ class ExpenseService {
             TableName: 'Expenses',
             Item: {
                 UserID: data.UserID,
-                ExpenseID: data.ExpenseID,
+                ExpenseID: uuidv4(),
                 ExpenseName: data.ExpenseName,
                 Cost: data.Cost
             },
         };
-        return await DynamoController.addItem(params);
+        return await DynamoController.createItem(params);
     }
 
-    static createTableExpense = async (data) => {
-        const params = {
-            TableName: "EspressoDrinks",
-            // For more information about data types,
-            // see https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.NamingRulesDataTypes.html#HowItWorks.DataTypes and
-            // https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Programming.LowLevelAPI.html#Programming.LowLevelAPI.DataTypeDescriptors
-            AttributeDefinitions: [
-              {
-                AttributeName: "DrinkName",
-                AttributeType: "S",
-              },
-            ],
-            KeySchema: [
-              {
-                AttributeName: "DrinkName",
-                KeyType: "HASH",
-              },
-            ],
-            ProvisionedThroughput: {
-              ReadCapacityUnits: 1,
-              WriteCapacityUnits: 1,
-            },
-        };
-        return await DynamoController.createTable(params);
-    }
+    static deleteExpense = async (data) => {
+      const params = {
+          TableName: 'Expenses',
+          Key: {
+            ExpenseID: data.ExpenseID
+          }
+      };
+      return await DynamoController.deleteItem(params);
+  }
+
+  static getExpenses = async (data) => {
+    const params = {
+        TableName: 'Expenses',
+        KeyConditionExpression: "UserID = :userID",
+        ExpressionAttributeValues: {
+          ":userID": data.UserID,
+      },
+      ConsistentRead: true,
+    };
+    return await DynamoController.queryTable(params);
+}
 
 }
 

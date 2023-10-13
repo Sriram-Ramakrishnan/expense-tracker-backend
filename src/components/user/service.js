@@ -1,23 +1,32 @@
-import UserRepository from './data-handler.js'
-
+import DynamoController from '../../database/data-handler.js'
+import { v4 as uuidv4 } from 'uuid';
 class UserService {
 
-    static findByID = async (UserID) => {
-        const data = await UserRepository.findByID(UserID);
+    static findUserByID = async (UserID) => {
+        const params = {
+            TableName: 'Users',
+            Key: {
+                UserID,
+            },
+        };
+        const response = await DynamoController.findItem(params);
+        return response;
+    };
 
-        if (data) {
-            return data.Item;
-        }
+    static createUser = async (data) => {
+        // Bcrypt salthash
+        const params = {
+            TableName: 'Users',
+            Item: {
+                UserID: data.UserID,
+                Username: data.Username,
+                Password: data.Password
+            },
+        };
 
-        return data;
-    }
-
-    static create = async (data) => {
-        return await UserRepository.create({
-            Username: data.Username
-        });
-    }
-
+        const response = await DynamoController.createItem(params);
+        return response;
+    };
 }
 
 export default UserService;
