@@ -1,10 +1,11 @@
 # aws-backend
 
+Backend for an Expense Tracker App. Uses Node and Express connecting with Amazon DynamoDB as the database to perform CRUD operations.
+
 ## Table of Contents
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
-- [Project Structure](#project-structure)
 - [Configuration](#configuration)
 ## Getting Started
 
@@ -29,7 +30,7 @@ Before you start, make sure you have the following installed:
 2. Navigate to the project directory:
 
    ```bash
-   cd my-express-app
+   cd aws-backend
    ```
 
 3. Install project dependencies:
@@ -41,36 +42,23 @@ Before you start, make sure you have the following installed:
 4. Start the Express server:
 
    ```bash
-   npm start
+   npm run server
    ```
 
 Your Express application should now be running at [http://localhost:3000](http://localhost:3000).
 
-## Project Structure
-
-The project structure follows a common layout for Express applications:
-
-- `node_modules/`: Auto-generated directory containing project dependencies.
-- `routes/`: Contains route handlers.
-  - `index.js`: Main application routes.
-- `views/`: Directory for template views (e.g., Pug, EJS).
-- `app.js`: Main application file for configuring the Express app.
-- `package.json`: Contains project information and dependencies.
-- `README.md`: The file you're reading now, providing project documentation.
-
 ## Usage
-
-Describe how to use your application here. Include any specific commands, endpoints, or features that are available. For example:
-
-- To access the homepage, go to [http://localhost:3000](http://localhost:3000).
-- API routes can be accessed at [http://localhost:3000/api/](http://localhost:3000/api/).
+API routes can be accessed at [http://localhost:3000/api/v1/](http://localhost:3000/api/v1/).
+Here are the following sub routes:
+- /users/: Create and find users
+- /expense/: CRUD operations for expenses addition
 
 ## Configuration
 
 Add your own DynamoDB variables in the .env file as follows:
 ```
-accessKeyId=YOUR ACCESS KEY ID
-secretAccessKey=YOUR SECRET ACCESS KEY
+AWS_ACCESS_KEY_ID=YOUR ACCESS KEY ID
+AWS_SECRET_ACCESS_KEY=YOUR SECRET ACCESS KEY
 region=YOUR REGION
 ```
 
