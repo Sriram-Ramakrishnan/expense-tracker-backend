@@ -5,8 +5,10 @@ import { DynamoDBDocumentClient,
         DeleteCommand,QueryCommand,
         UpdateCommand} from "@aws-sdk/lib-dynamodb";
 
+import { config } from 'dotenv';
+config();
 const client = new DynamoDBClient({
-    region: 'ap-south-1'
+    region: process.env.region
 });
 const docClient = DynamoDBDocumentClient.from(client);
 
