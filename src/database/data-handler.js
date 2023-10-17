@@ -16,7 +16,6 @@ class DynamoController {
     static createTable = async (params) => {
         const command = new CreateTableCommand(params);
         const response = await client.send(command);
-        console.log(response);
         return response;
     };
 
@@ -24,7 +23,6 @@ class DynamoController {
     static createItem = async (params) => {
         const command = new PutCommand(params);
         const response = await docClient.send(command);
-        console.log(response);
         return response;
     };
 

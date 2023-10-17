@@ -1,5 +1,6 @@
 import UserService from './service.js';
 import jwt from 'jsonwebtoken'
+import bcrypt from 'bcryptjs'
 class UserController {
 
     static findUserByID = async (req, res) => {
@@ -27,7 +28,11 @@ class UserController {
             if(user.Item){
                 return res.status(400).json({errors: [{msg: 'User already exists'}]});
             }else{
-                const response = await UserService.createUser(req.body);
+                // Bcrypt salthash
+                const salt = await bcrypt.genSalt(10);
+                data.Password = await bcrypt.hash(data.Password,salt); // Hashes the password
+
+                const response = await UserService.createUser(data);
                 if(response){
                     const payload = {
                         user: {
@@ -56,8 +61,8 @@ class UserController {
         const data = req.body;
         try{
             // Verify if user and password are equal:
-            const user = await (UserService.findUserByID(data.UserID)).Item;
-            let isMatch = bcrypt.compare(data.Password,user.Password);
+            const user = await UserService.findUserByID(data.UserID);
+            let isMatch = await bcrypt.compare(data.Password,user.Item.Password);
 
             if(!isMatch){
                 return res.status(400).json({errors: [{msg: 'Invalid Credentials'}]});
@@ -65,7 +70,7 @@ class UserController {
 
             const payload = {
                 user: {
-                    id: user.UserID 
+                    id: data.UserID 
                 }
             }
 
