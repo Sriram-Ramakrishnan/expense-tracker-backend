@@ -5,8 +5,8 @@ class UserController {
 
     static findUserByID = async (req, res) => {
         try {
-            const UserID = req.params.UserID;
-            const response = (await UserService.findUserByID(UserID));
+            const Email = req.params.Email;
+            const response = (await UserService.findUserByID(Email));
             if(response.Item == undefined){
                 res.status(400).json({errors: [{msg: 'User not found'}]});
             }
@@ -23,7 +23,7 @@ class UserController {
     static createUser = async (req, res) => {
         try {
             const data = req.body;
-            const user = await UserService.findUserByID(data.UserID);
+            const user = await UserService.findUserByID(data.Email);
             console.log(user);
             if(user.Item){
                 return res.status(400).json({errors: [{msg: 'User already exists'}]});
@@ -36,7 +36,7 @@ class UserController {
                 if(response){
                     const payload = {
                         user: {
-                            id: data.UserID 
+                            id: data.Email 
                         }
                     }
         
@@ -61,7 +61,7 @@ class UserController {
         const data = req.body;
         try{
             // Verify if user and password are equal:
-            const user = await UserService.findUserByID(data.UserID);
+            const user = await UserService.findUserByID(data.Email);
             let isMatch = await bcrypt.compare(data.Password,user.Item.Password);
 
             if(!isMatch){
@@ -70,7 +70,7 @@ class UserController {
 
             const payload = {
                 user: {
-                    id: data.UserID 
+                    id: data.Email 
                 }
             }
 

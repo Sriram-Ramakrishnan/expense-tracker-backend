@@ -1,11 +1,11 @@
 import DynamoController from '../../database/data-handler.js'
 class UserService {
 
-    static findUserByID = async (UserID) => {
+    static findUserByID = async (Email) => {
         const params = {
             TableName: 'Users',
             Key: {
-                UserID,
+                Email,
             },
         };
         const response = await DynamoController.findItem(params);
@@ -16,7 +16,6 @@ class UserService {
         const params = {
             TableName: 'Users',
             Item: {
-                UserID: data.UserID,
                 Email: data.Email,
                 Username: data.Username,
                 Password: data.Password
