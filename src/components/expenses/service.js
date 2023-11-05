@@ -1,18 +1,9 @@
-import DynamoController from '../../database/data-handler.js'
+import MongoDBController from '../../database/data-handler.js'
 import { v4 as uuidv4 } from 'uuid';
 class ExpenseService {
 
     static createExpense = async (data) => {
-        const params = {
-            TableName: 'Expenses',
-            Item: {
-                UserID: data.UserID,
-                ExpenseID: uuidv4(),
-                ExpenseName: data.ExpenseName,
-                Cost: data.Cost
-            },
-        };
-        return await DynamoController.createItem(params);
+        return await MongoDBController.createExpense(data);
     }
 
     static deleteExpense = async (data) => {

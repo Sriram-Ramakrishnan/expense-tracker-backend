@@ -1,28 +1,12 @@
-import DynamoController from '../../database/data-handler.js'
+import MongoDBController from '../../database/data-handler.js'
 class UserService {
-
-    static findUserByID = async (Email) => {
-        const params = {
-            TableName: 'Users',
-            Key: {
-                Email,
-            },
-        };
-        const response = await DynamoController.findItem(params);
+    static findUserByID = async (email) => {
+        const response = await MongoDBController.findUserByID(email);
         return response;
     };
 
     static createUser = async (data) => {
-        const params = {
-            TableName: 'Users',
-            Item: {
-                Email: data.Email,
-                Username: data.Username,
-                Password: data.Password
-            },
-        };
-
-        const response = await DynamoController.createItem(params);
+        const response = await MongoDBController.createUser(data);
         return response;
     };
 

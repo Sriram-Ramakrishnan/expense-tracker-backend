@@ -1,7 +1,7 @@
 {
-  "name": "aws-backend",
+  "name": "expense-tracker-backend",
   "version": "1.0.0",
-  "description": "",
+  "description": "Backend for an Expense Tracker App. Uses Node and Express connecting with Amazon DynamoDB as the database to perform CRUD operations.",
   "main": "index.js",
   "type": "module",
   "scripts": {
@@ -13,23 +13,25 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Sriram-Ramakrishnan/aws-backend.git"
+    "url": "git+https://github.com/Sriram-Ramakrishnan/expense-tracker-backend.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Sriram-Ramakrishnan/aws-backend/issues"
+    "url": "https://github.com/Sriram-Ramakrishnan/expense-tracker-backend/issues"
   },
-  "homepage": "https://github.com/Sriram-Ramakrishnan/aws-backend#readme",
+  "homepage": "https://github.com/Sriram-Ramakrishnan/expense-tracker-backend#readme",
   "dependencies": {
-    "@aws-sdk/client-dynamodb": "^3.427.0",
-    "@aws-sdk/lib-dynamodb": "^3.428.0",
+    "@aws-sdk/client-dynamodb": "^3.438.0",
+    "@aws-sdk/lib-dynamodb": "^3.438.0",
     "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
-    "jsonwebtoken": "^9.0.2"
+    "jsonwebtoken": "^9.0.2",
+    "mongodb": "^6.2.0",
+    "mongoose": "^8.0.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.23.0",

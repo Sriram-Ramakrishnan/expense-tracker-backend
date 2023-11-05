@@ -1,58 +1,52 @@
-import { DynamoDBClient,CreateTableCommand,  } from "@aws-sdk/client-dynamodb";
-import { DynamoDBDocumentClient, 
-        PutCommand, 
-        GetCommand, 
-        DeleteCommand,QueryCommand,
-        UpdateCommand} from "@aws-sdk/lib-dynamodb";
+import User from '../database/models/Users.js';
+import Expense from '../database/models/Expenses.js';
 
-import { config } from 'dotenv';
-config();
-const client = new DynamoDBClient({
-    region: process.env.region
-});
-const docClient = DynamoDBDocumentClient.from(client);
-
-class DynamoController {
-    static createTable = async (params) => {
-        const command = new CreateTableCommand(params);
-        const response = await client.send(command);
-        return response;
+class MongoDBController {
+    static findUserByID = async (email) => {
+        try {
+            console.log(email);
+            const response = await User.findOne({email});
+            return response; 
+        } catch (error) {
+            console.error("User not found");
+            throw error;
+        }
     };
 
-    // Create
-    static createItem = async (params) => {
-        const command = new PutCommand(params);
-        const response = await docClient.send(command);
-        return response;
+    static createUser = async (data) => {
+        try {
+            const newUser = new User(data);
+            console.log(newUser);
+            const savedUser = await newUser.save();
+            return savedUser;
+        } catch (error) {
+            console.error("User not created");
+            throw error;
+        }
     };
 
-    // Read
-    static findItem = async (params) => {
-        const command = new GetCommand(params);
-        const response = await docClient.send(command);
-        return response;
+    static createExpense = async (data) => {
+        try {
+            const newExpense = new Expense(data);
+            console.log(newExpense);
+            const savedExpense = await newExpense.save();
+            return savedExpense;
+        } catch (error) {
+            console.error("Server error");
+            throw error;
+        }
     };
 
-    // Update
-    static updateItem = async (params) => {
-        const command = new UpdateCommand(params);
-        const response = await docClient.send(command);
-        return response;
-    };
+    static deleteExpense = async (data) => {
+        try {
+            const response = await Expense.deleteOne({ExpenseID: data.ExpenseID});
+            return response;
+        } catch (error) {
+            console.error("Server error");
+            throw error;
+        }   
+    }
 
-    // Delete
-    static deleteItem = async (params) => {
-        const command = new DeleteCommand(params);
-        const response = await docClient.send(command);
-        return response;
-    };
+};
 
-    // Query
-    static queryTable = async (params) => {
-        const command = new QueryCommand(params);
-        const response = await docClient.send(command);
-        return response;
-    };
-}
-
-export default DynamoController;
+export default MongoDBController;
